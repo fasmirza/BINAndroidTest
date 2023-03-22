@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/fragGallery">
+
+    <fragment
+        android:id="@+id/fragGallery"
+        android:name="com.temotion.mirzas.binandroidtest.FragGallery"
+        android:label="fragment_frag_gallery"
+        tools:layout="@layout/fragment_frag_gallery" >
+        <action
+            android:id="@+id/action_fragGallery_to_fragImgPrev"
+            app:destination="@id/fragImgPrev"
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragImgPrev"
+        android:name="com.temotion.mirzas.binandroidtest.FragImgPrev"
+        android:label="fragment_frag_img_prev"
+        tools:layout="@layout/fragment_frag_img_prev" />
+</navigation>
