@@ -15,7 +15,7 @@ import com.temotion.mirzas.binandroidtest.databinding.FragmentSecondBinding
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class SecondFragment : Fragment() {
+class imagePreviewFragment : Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
     private  val TAG = "SecondFragment"

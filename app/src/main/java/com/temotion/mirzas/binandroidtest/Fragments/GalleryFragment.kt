@@ -24,7 +24,7 @@ import com.temotion.mirzas.binandroidtest.databinding.FragmentFirstBinding
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : Fragment(), RecyclerViewInterface{
+class GalleryFragment : Fragment(), RecyclerViewInterface{
 
     private var _binding: FragmentFirstBinding? = null
     lateinit var rv_gallery : RecyclerView
