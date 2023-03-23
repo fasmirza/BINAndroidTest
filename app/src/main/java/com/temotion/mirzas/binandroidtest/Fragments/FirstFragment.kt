@@ -9,10 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.temotion.mirzas.binandroidtest.Adapters.GalleryAdapter
+import com.temotion.mirzas.binandroidtest.Interface.RecyclerViewInterface
+import com.temotion.mirzas.binandroidtest.Model.ImageList
 import com.temotion.mirzas.binandroidtest.R
 import com.temotion.mirzas.binandroidtest.ViewModels.GalleryViewModel
 import com.temotion.mirzas.binandroidtest.databinding.FragmentFirstBinding
@@ -20,11 +24,12 @@ import com.temotion.mirzas.binandroidtest.databinding.FragmentFirstBinding
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : Fragment() {
+class FirstFragment : Fragment(), RecyclerViewInterface{
 
     private var _binding: FragmentFirstBinding? = null
     lateinit var rv_gallery : RecyclerView
     lateinit var galleryAdapter: GalleryAdapter
+    lateinit var imageData : List<ImageList>
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -47,7 +52,7 @@ class FirstFragment : Fragment() {
     fun initView(){
         rv_gallery = binding.rvGallery
         galleryAdapter = GalleryAdapter()
-        var layoutmanager  = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,false)
+        var layoutmanager  = GridLayoutManager(activity, 2)
         rv_gallery.layoutManager = layoutmanager
     }
     fun initViewModel(){
@@ -55,7 +60,8 @@ class FirstFragment : Fragment() {
         /*setting Observer to the viewmodel*/
         viewModel.getLiveDataObserver().observe(viewLifecycleOwner, Observer{
             if (it != null){
-                galleryAdapter.setupData(it) // "it" is the ListData sent by observer
+                imageData= it
+                galleryAdapter.setupData(it,this) // "it" is the ListData sent by observer
 
                 rv_gallery.adapter = galleryAdapter
             }else{
@@ -74,5 +80,12 @@ class FirstFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun imageRVOnclickListener(position: Int) {
+        var bundle = Bundle()
+        bundle.putString("downloadURL",imageData.get(position).downloadUrl)
+
+        NavHostFragment.findNavController(this).navigate(R.id.action_FirstFragment_to_SecondFragment,bundle)
     }
 }
